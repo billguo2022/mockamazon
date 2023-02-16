@@ -11,6 +11,7 @@ Movie::Movie(const std::string category, const std::string name, double price, i
 
 Movie::~Movie() {}
 
+
 //genre and name keywords
 std::set<std::string> Movie::keywords() const {
 	std::set<std::string> genreKeywords = parseStringToWords(genre_);
@@ -30,6 +31,8 @@ std::string Movie::getRating() const {return rating_;}
 std::string Movie::display() const {
 	return (name_ + "\n" + "Genre: " + genre_ + " Rating: " + rating_ + "\n" + price_ + " "
             + qty_ + " left.");}
+
+bool Movie::isMatch(std::vector<std::string>& searchTerms) const { return false; }
 
 //output dump
 void Movie::dump(std::ostream& os) const {
