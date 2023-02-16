@@ -12,7 +12,7 @@ public:
 	virtual std::set<std::string> keywords() const;
 
 //returns a string 
-	virtual std::string display() const;
+	virtual std::string displayString() const;
 
 //output product
 	virtual void dump(std::ostream& os) const;

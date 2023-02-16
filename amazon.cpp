@@ -9,6 +9,7 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -100,7 +101,58 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
+						} else if (cmd == "ADD") {
+                // if we get username and result
+                string user;
+                int r;
+                if (ss >> user && ss >> r && r > 0 && (unsigned int)r <= hits.size()) {
+                    
+                    string s = "";
+                   
+                    Product* hit = hits[r - 1];
+                
+                 //add product
+                    ds.productTocart(user, hit, s);
+                    
+                    if (s != "") {
+                        cout << s<< endl;
+                    }
+                } else {
+                  
+                    std::cout << "Invalid request" << std::endl;
+                }
+            }
+             else if (cmd == "VIEWCART") {
+                string user;
+                
+                if (ss >> user) {
+                    string s= "";
+                    
+                    vector<Product*> cart = ds.viewcart(user, s);
+                    
+                    if (s != "") {
+                        cout << s << endl;
+                    } else {
+                        displayProducts(cart);
+                    }
 
+                } else {
+                    cout << "Invalid username" << endl;
+                }
+            } else if (cmd == "BUYCART") {
+                
+                string user;
+                if (ss >> user) {
+                    string s = "";
+                    
+                    ds.buy_cart(user, s);
+                    if (s != "") {
+                        cout << s << endl;
+                    }
+                } else {
+                    cout << "Invalid username" << endl;
+                }
+            }
 
 
 
@@ -109,7 +161,7 @@ int main(int argc, char* argv[])
             }
         }
 
-    }
+    
     return 0;
 }
 

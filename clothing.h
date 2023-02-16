@@ -14,7 +14,7 @@ public:
 	virtual std::set<std::string> keywords() const;
 	
 	//display string function
-	virtual std::string display() const;
+	virtual std::string displayString() const;
 	
 	//dump output function
 	virtual void dump(std::ostream& os) const;

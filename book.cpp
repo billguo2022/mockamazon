@@ -38,8 +38,8 @@ std::set<std::string> Book::keywords() const {
 }
 
 //display the book as a string
-std::string Book::display() const {
-	 return (name_ + "\n" + "author: " + author_ + " isbn: " + isbn_ + "\n" + price_ + " "+ qty_ + " left.");
+std::string Book::displayString() const {
+	 return (name_ + "\n" + "author: " + author_ + " isbn: " + isbn_ + "\n" + std::to_string(price_)+ " "+ std::to_string(qty_) + " left.");
 }
 
 //dump output stream from requirements

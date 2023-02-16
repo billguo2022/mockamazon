@@ -16,7 +16,7 @@ public:
  //keyword function
 	virtual std::set<std::string> keywords() const;
 //display words function
-	virtual std::string display() const;
+	virtual std::string displayString() const;
 
 //return rating
 	std::string getRating() const;

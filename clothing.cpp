@@ -26,9 +26,9 @@ std::string Clothing::getSize() const {return size_;}
 std::string Clothing::getBrand() const {return brand_;}
 
 //display the string
-std::string Clothing::display() const {
+std::string Clothing::displayString() const {
     
-    return (name_ + "\n" + "Size: " + size_ + " Brand: " + brand_ + "\n" + price_+ " "+ qty_ + " left.");
+    return (name_ + "\n" + "Size: " + size_ + " Brand: " + brand_ + "\n" +std::to_string(price_)+ " "+ std::to_string(qty_) + " left.");
 }
 
 //dump output
