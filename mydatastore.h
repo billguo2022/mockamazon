@@ -8,6 +8,8 @@
 #include <map>
 #include <set>
 
+#include <list>
+
 
 class MyDataStore : public DataStore {
 public:
@@ -16,36 +18,51 @@ public:
     virtual ~MyDataStore();
 
     //add product
-    void addProduct(Product* p);
+    virtual void addProduct(Product* p);
 
     //add user
-    void addUser(User* s);
+    virtual void addUser(User* s);
 
     //search for the product that has the keyword
     //also apply add and or search
    
-    std::vector<Product*> search(std::vector<std::string>& word, int s);
-
+    virtual std::vector<Product*> search(std::vector<std::string>& words, int type);
    
      //Remake the data file using current product and user
     
-    void dump(std::ostream& file);
+    virtual void dump(std::ostream& file);
+
+    bool addcart(std::string users, Product*);
+
 
     void productTocart(std::string user, Product* product, std::string& s);
 
-    void buy_cart(std::string user, std::string& s);
 
-    std::vector<Product*> viewcart(std::string user, std::string& s);
+    bool buy_c(std::string users);
 
+    void viewCart(std::string users, bool& invalid);
+
+   
 private:
-    std::map<std::string, std::vector<Product*>*>
-            carts;  
-    std::map<std::string, std::set<Product*>*>
+        //set for products
+   std::set<Product*> 
+        products;
+    //map to pair up the products with keywords      
+    std::map<std::string, std::set<Product*>>
             keywordmap;  
-    std::map<std::string, User*> users;  
+        //username and user map
+    std::map<std::string, User*> 
+        userm;
+    //set for users
+    std::set<User*> 
+        users;
 
-    std::vector<Product*>
-            products;  
+    //user and carts
+   
+    std::map<User*, std::list<Product*>> 
+        carts;
+
+    
 };
 
 #endif

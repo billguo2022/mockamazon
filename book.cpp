@@ -39,14 +39,13 @@ std::set<std::string> Book::keywords() const {
 
 //display the book as a string
 std::string Book::displayString() const {
-	 return (name_ + "\n" + "author: " + author_ + " isbn: " + isbn_ + "\n" + std::to_string(price_)+ " "+ std::to_string(qty_) + " left.");
+	 return (name_ + "\n" + "Author: " + author_ + " ISBN: " + isbn_ + "\n" + std::to_string(price_)+ " "+ std::to_string(qty_) + " left.");
 }
 
 //dump output stream from requirements
 void Book::dump(std::ostream& os) const {
    
-    os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << "\n"<< isbn_ << "\n" << author_ << std::endl;
-
+    os << category_ << "\n" << name_ << "\n" << std::to_string(price_) << "\n" << std::to_string(qty_)<< "\n"<< isbn_ << "\n" << author_ << std::endl;
 }
 
 //similar to the one in product.cpp

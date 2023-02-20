@@ -19,6 +19,7 @@ struct ProdNameSorter {
 };
 void displayProducts(vector<Product*>& hits);
 
+
 int main(int argc, char* argv[])
 {
     if(argc < 2) {
@@ -101,68 +102,91 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
-						} else if (cmd == "ADD") {
-                // if we get username and result
+			
+            else if (cmd == "ADD") {
+                
                 string user;
                 int r;
-                if (ss >> user && ss >> r && r > 0 && (unsigned int)r <= hits.size()) {
-                    
-                    string s = "";
-                   
-                    Product* hit = hits[r - 1];
                 
-                 //add product
-                    ds.productTocart(user, hit, s);
-                    
-                    if (s != "") {
-                        cout << s<< endl;
-                    }
-                } else {
-                  
-                    std::cout << "Invalid request" << std::endl;
-                }
-            }
-             else if (cmd == "VIEWCART") {
-                string user;
+                bool notvalid = false;
                 
-                if (ss >> user) {
-                    string s= "";
-                    
-                    vector<Product*> cart = ds.viewcart(user, s);
-                    
-                    if (s != "") {
-                        cout << s << endl;
-                    } else {
-                        displayProducts(cart);
-                    }
+                //if input username and r 
+                if (ss >> user)  {
+                    if(ss>>r){
 
+                        
+                        if(r>=1 && r<=(int)hits.size()){
+                            user = convToLower(user);
+                        //call the add cart function to add
+                            notvalid = !ds.addcart(user,hits[r-1]);
+                         }
+                        else{
+                             notvalid = true;
+
+                        }
+
+                    }
+                }
+                else{
+                    //if not the command then not valid
+                    notvalid = true;
+                }
+                if(notvalid==true){
+
+                    cout<<"invalid request"<<endl;
+                }
+            }  
+              //to see someone's cart  
+            else if (cmd == "VIEWCART") {
+                //std::cout <<"HERE"<<std::endl;
+								string user;
+                //only see it if the user's valid
+                user = convToLower(user);
+                bool notvalid = false;
+                if (ss >> user) { 
+                    user = convToLower(user);
+										//std::cout<<user<<std::endl;
+                    //make a new product pointer
+                    //std::list<Product*> p;
+
+                    //call the viewcart function
+                   	ds.viewCart(user, notvalid);
+                // if the user's not valid, return false
                 } else {
+                    notvalid = true;
                     cout << "Invalid username" << endl;
                 }
-            } else if (cmd == "BUYCART") {
-                
+
+           } 
+					 else if ( cmd == "BUYCART") { 
+            //let a user checkout
                 string user;
+                bool notvalid = false;
                 if (ss >> user) {
-                    string s = "";
-                    
-                    ds.buy_cart(user, s);
-                    if (s != "") {
-                        cout << s << endl;
-                    }
+
+                    user= convToLower(user);
+                    //call the buy funciton to buy cart or checkout
+                    notvalid= !ds.buy_c(user);
                 } else {
+                    notvalid = true;
+                }
+                if (notvalid == true) {
                     cout << "Invalid username" << endl;
                 }
             }
-
-
-
+            
+            
             else {
                 cout << "Unknown command" << endl;
             }
+
+
+
+            
         }
 
     
-    return 0;
+		}
 }
 
 void displayProducts(vector<Product*>& hits)
